@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Murilo MS</title>
+    <meta charset="utf-8">
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS file -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body href="#janela1" rel="modal">
+    <header class="menu">
+        <div class="menu-container">
+            <a class="menu-logo" href="https://muriloms.github.io/"><img src="img/logo.png" alt="MuriloMS"></a>
+            <nav class="menu-nav">
+                <ul>
+                    <li><a href="../../curriculo/curriculo.html">Curriculo</a></li>
+                    <li><a href="../../projetos/projetos.html">Projetos</a></li>
+                    <li><a href="../../repositorios/repositorios.html">Repositórios</a></li>
+                    <li><a href="#">Portifólio</a></li>
+                </ul>
+            </nav>  
+        </div>
+    </header>
+
+    <section class="container">
+       <dir id ="myContainer" class="row">
+            <div class="col-md col-sm-4">
+                <img id="rick" src="img/rick1.png">
+            </div>
+            <div class="col-md col-sm-4">
+                <img id="morty" src="img/morty1.png">
+            </div>
+            <div class="col-sm-4">
+                
+            </div>
+       </dir>  
+    </section>
+
+     <section class="container">
+         <div class="row container-iniciar">
+            <div>
+                <button class="btn-vis col-sm-10" onclick="iniciarDash()">Iniciar</button>
+            </div>
+             <div>
+                <button class="btn-vis col-sm-10" onclick="terminarDash()">Terminar</button>
+            </div>
+         </div>
+     </section>
+
+     <section class="container intro">
+        <div  class="row">
+                <div id="dash" class="col-sm">
+                    <div class="numberCircle">
+                        <h3 id="temporadas" class="number-inside">3</h3>   
+                    </div>
+                    <div><h2 id="temporadas" class="titleCircle">Temporadas</h2></div>
+                </div>
+                <div id="dash" class="col-sm">
+                    <div class="numberCircle">
+                        <h3 class="number-inside">31</h3>   
+                    </div>
+                    <div><h2 class="titleCircle">Episodios</h2></div>
+                </div>
+                <div id="dash" class="col-sm">
+                    <div class="numberCircle">
+                        <h3 class="number-inside">493</h3>   
+                    </div>
+                    <div><h2 class="titleCircle">Personagens</h2></div>
+                </div>
+                <div id="dash" class="col-sm">
+                    <div class="numberCircle">
+                        <h3 class="number-inside">54</h3>   
+                    </div>
+                    <div><h2 class="titleCircle">Mundos</h2></div>
+                </div>                
+            </div>
+       
+    </section>
+    <!-- Graficos -->
+    <section id="dash" class="container">
+        <div class="main-cards">
+          <div id="plot1" class="card">
+            <h1>Top 10</h1>
+            <h1>Participação</h1>
+          </div>
+          <div class="card">Card</div>
+          <div class="card">Card</div>
+        </div>
+    </section>
+
+ 
+    <div class="window" id="janela1">
+        <section class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img id="rickModal" src="img/rickFinal.png">
+                </div>
+                <div class="col-sm-6">
+                    <img id="mortyModal" src="img/mortyFinal.png">
+                </div>
+            </div>
+            <div class="textoJanelaModal">
+                <h1>Participe da Competição</h1>
+                <h3>Acesse a comunidade da Data Science Academic</h3>
+                <a href="https://www.datascienceacademy.com.br/social" class="btn-modal">Clique aqui</a>
+            </div>
+        </section>
+    </div>
+     
+     
+    <!-- mascara para cobrir o site -->  
+    <div id="mascara"></div>
+        
+
+
+    <section>
+        <div class="copy">
+            <div class="container">
+                <p>Copyright © 2019</p>
+            </div>
+        </div>
+    </section>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/script.js"></script> 
+    
+</body>
+</html>

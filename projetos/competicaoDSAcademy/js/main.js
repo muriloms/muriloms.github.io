@@ -78,7 +78,7 @@ function plot3(){
   d3.csv("https://muriloms.github.io/data/dados3.csv", function(data) {
 
       // List of groups (here I have one group per column)
-      var allGroup = ["valueA", "valueB", "valueC"]
+      var allGroup = ["tempA", "tempB", "tempC"]
 
       // add the options to the button
       d3.select("#selectButton")
@@ -87,7 +87,7 @@ function plot3(){
         .enter()
         .append('option')
         .text(function (d) { return d; }) // text showed in the menu
-        .attr("value", function (d) { return d; }) // corresponding value returned by the button
+        .attr("temp", function (d) { return d; }) // corresponding value returned by the button
 
       // A color scale: one color for each group
       var myColor = d3.scaleOrdinal()
@@ -104,7 +104,7 @@ function plot3(){
 
       // Add Y axis
       var y = d3.scaleLinear()
-        .domain( [0,20])
+        .domain( [0,62])
         .range([ height, 0 ]);
       svg.append("g")
         .call(d3.axisLeft(y));

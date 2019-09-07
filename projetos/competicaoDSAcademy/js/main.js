@@ -78,7 +78,7 @@ function plot3(){
   d3.csv("https://muriloms.github.io/data/dados3.csv", function(data) {
 
       // List of groups (here I have one group per column)
-      var allGroup = ["temp1", "temp2", "temp3"]
+      var allGroup = ["tempA", "tempB", "tempC"]
 
       // add the options to the button
       d3.select("#selectButton")

@@ -62,7 +62,7 @@ plotBar();
 function plot3(){
   // set the dimensions and margins of the graph
   var margin = {top: 10, right: 30, bottom: 30, left: 30},
-      width = 500 - margin.left - margin.right,
+      width = 1000 - margin.left - margin.right,
       height = 180 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
@@ -78,7 +78,7 @@ function plot3(){
   d3.csv("https://muriloms.github.io/data/dados3.csv", function(data) {
 
       // List of groups (here I have one group per column)
-      var allGroup = ["tempA", "tempB", "tempC"]
+      var allGroup = ["value1", "value2", "value3"]
 
       // add the options to the button
       d3.select("#selectButton")
@@ -87,7 +87,7 @@ function plot3(){
         .enter()
         .append('option')
         .text(function (d) { return d; }) // text showed in the menu
-        .attr("temp", function (d) { return d; }) // corresponding value returned by the button
+        .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
       // A color scale: one color for each group
       var myColor = d3.scaleOrdinal()
@@ -116,9 +116,9 @@ function plot3(){
           .datum(data)
           .attr("d", d3.line()
             .x(function(d) { return x(+d.time) })
-            .y(function(d) { return y(+d.temp1) })
+            .y(function(d) { return y(+d.value1) })
           )
-          .attr("stroke", function(d){ return myColor("temp1") })
+          .attr("stroke", function(d){ return myColor("value1") })
           .style("stroke-width", 4)
           .style("fill", "none")
 
@@ -126,7 +126,7 @@ function plot3(){
       function update(selectedGroup) {
 
         // Create new data with the selection?
-        var dataFilter = data.map(function(d){return {time: d.time, temp:d[selectedGroup]} })
+        var dataFilter = data.map(function(d){return {time: d.time, value:d[selectedGroup]} })
 
         // Give these new data to update line
         line
@@ -135,7 +135,7 @@ function plot3(){
             .duration(1000)
             .attr("d", d3.line()
               .x(function(d) { return x(+d.time) })
-              .y(function(d) { return y(+d.temp) })
+              .y(function(d) { return y(+d.value) })
             )
             .attr("stroke", function(d){ return myColor(selectedGroup) })
       }
@@ -143,7 +143,7 @@ function plot3(){
       // When the button is changed, run the updateChart function
       d3.select("#selectButton").on("change", function(d) {
           // recover the option that has been chosen
-          var selectedOption = d3.select(this).property("temp")
+          var selectedOption = d3.select(this).property("value")
           // run the updateChart function with this selected option
           update(selectedOption)
       })
@@ -154,19 +154,107 @@ plot3();
 
 function plot2(){
 
+  // set the dimensions and margins of the graph
+  var width = 400
+      height = 400
+      margin = 100
 
-  var data = [{
-    values: [19, 26, 55],
-    labels: ['Residential', 'Non-Residential', 'Utility'],
-    type: 'pie'
-  }];
+  // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+  var radius = Math.min(width, height) / 2 - margin
 
-  var layout = {
-    height: 350,
-    width: 400
-  };
+  // append the svg object to the div called 'my_dataviz'
+  var svg = d3.select("#plot2")
+    .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+    .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-  Plotly.newPlot('plot3', data, layout);
+  // Create dummy data
+  var data = {Human: 9, Alien: 20, Humanoid:30, Animal:8, Robot:12, Cronenberg:3, Mytholog:7, Poopybutthole:14}
+
+  // set the color scale
+  var color = d3.scaleOrdinal()
+    .domain(["Human", 
+      "Alien", 
+      "Humanoid", 
+      "Animal", 
+      "Robot", 
+      "Cronenberg", 
+      "Mytholog", 
+      "Poopybutthole"])
+    .range(['#0C12FF', 
+      '#CC5418', 
+      '#CC5418',
+      '#CC5418',
+      '#CC5418',
+      '#CC5418',
+      '#CC5418',
+      'black']);
+
+  // Compute the position of each group on the pie:
+  var pie = d3.pie()
+    .sort(null) // Do not sort group by size
+    .value(function(d) {return d.value; })
+  var data_ready = pie(d3.entries(data))
+
+  // The arc generator
+  var arc = d3.arc()
+    .innerRadius(radius * 0.5)         // This is the size of the donut hole
+    .outerRadius(radius * 0.8)
+
+  // Another arc that won't be drawn. Just for labels positioning
+  var outerArc = d3.arc()
+    .innerRadius(radius * 0.9)
+    .outerRadius(radius * 0.9)
+
+  // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+  svg
+    .selectAll('allSlices')
+    .data(data_ready)
+    .enter()
+    .append('path')
+    .attr('d', arc)
+    .attr('fill', function(d){ return(color(d.data.key)) })
+    .attr("stroke", "white")
+    .style("stroke-width", "2px")
+    .style("opacity", 0.7)
+
+  // Add the polylines between chart and labels:
+  svg
+    .selectAll('allPolylines')
+    .data(data_ready)
+    .enter()
+    .append('polyline')
+      .attr("stroke", "black")
+      .style("fill", "none")
+      .attr("stroke-width", 1)
+      .attr('points', function(d) {
+        var posA = arc.centroid(d) // line insertion in the slice
+        var posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
+        var posC = outerArc.centroid(d); // Label position = almost the same as posB
+        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
+        posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
+        return [posA, posB, posC]
+      })
+
+  // Add the polylines between chart and labels:
+  svg
+    .selectAll('allLabels')
+    .data(data_ready)
+    .enter()
+    .append('text')
+      .text( function(d) { console.log(d.data.key) ; return d.data.key } )
+      .attr('transform', function(d) {
+          var pos = outerArc.centroid(d);
+          var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+          pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+          return 'translate(' + pos + ')';
+      })
+      .style('text-anchor', function(d) {
+          var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+          return (midangle < Math.PI ? 'start' : 'end')
+      })
 
 }
-//plot3();
+plot2();

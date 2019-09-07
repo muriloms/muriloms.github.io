@@ -288,11 +288,15 @@ body{
   border: none;
 }
 .card:nth-child(2) {
-  height: 200px;
+  height: 485px;
+  background-color: white;
+  border: none;
   
 }
 .card:nth-child(3) {
   height: 265px;
+  right: 500px;
+  width: 1000px;
   background-color: white;
   border: none;
 }
@@ -310,3 +314,6 @@ body{
 #selectButton{
   margin-right: 400px;
 }
+
+
+

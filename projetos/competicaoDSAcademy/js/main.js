@@ -78,7 +78,7 @@ function plot3(){
   d3.csv("https://muriloms.github.io/data/dados3.csv", function(data) {
 
       // List of groups (here I have one group per column)
-      var allGroup = ["Tempora1", "Tempora2", "Tempora3"]
+      var allGroup = ["valueA", "valueB", "valueC"]
 
       // add the options to the button
       d3.select("#selectButton")
@@ -104,7 +104,7 @@ function plot3(){
 
       // Add Y axis
       var y = d3.scaleLinear()
-        .domain( [0,60])
+        .domain( [0,20])
         .range([ height, 0 ]);
       svg.append("g")
         .call(d3.axisLeft(y));
@@ -115,10 +115,10 @@ function plot3(){
         .append("path")
           .datum(data)
           .attr("d", d3.line()
-            .x(function(d) { return x(+d.Episodio) })
-            .y(function(d) { return y(+d.Tempora1) })
+            .x(function(d) { return x(+d.time) })
+            .y(function(d) { return y(+d.valueA) })
           )
-          .attr("stroke", function(d){ return myColor("Tempora1") })
+          .attr("stroke", function(d){ return myColor("valueA") })
           .style("stroke-width", 4)
           .style("fill", "none")
 

@@ -289,12 +289,24 @@ body{
 }
 .card:nth-child(2) {
   height: 200px;
+  
 }
 .card:nth-child(3) {
   height: 265px;
+  background-color: white;
+  border: none;
 }
 
 .card h1{
   font-size: 20px;
   font-family: Georgia;
+}
+
+#selectButton{
+  left: 100px;
+
+}
+
+#selectButton{
+  margin-right: 400px;
 }

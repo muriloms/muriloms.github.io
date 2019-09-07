@@ -59,7 +59,7 @@ function plotBar(){
 plotBar();
 
 
-function plot2(){
+function plot3(){
   // set the dimensions and margins of the graph
   var margin = {top: 10, right: 30, bottom: 30, left: 30},
       width = 500 - margin.left - margin.right,
@@ -75,10 +75,10 @@ function plot2(){
             "translate(" + margin.left + "," + margin.top + ")");
 
   //Read the data
-  d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_connectedscatter.csv", function(data) {
+  d3.csv("https://muriloms.github.io/data/dados3.csv", function(data) {
 
       // List of groups (here I have one group per column)
-      var allGroup = ["valueA", "valueB", "valueC"]
+      var allGroup = ["Tempora1", "Tempora2", "Tempora3"]
 
       // add the options to the button
       d3.select("#selectButton")
@@ -104,7 +104,7 @@ function plot2(){
 
       // Add Y axis
       var y = d3.scaleLinear()
-        .domain( [0,20])
+        .domain( [0,60])
         .range([ height, 0 ]);
       svg.append("g")
         .call(d3.axisLeft(y));
@@ -115,10 +115,10 @@ function plot2(){
         .append("path")
           .datum(data)
           .attr("d", d3.line()
-            .x(function(d) { return x(+d.time) })
-            .y(function(d) { return y(+d.valueA) })
+            .x(function(d) { return x(+d.Episodio) })
+            .y(function(d) { return y(+d.Tempora1) })
           )
-          .attr("stroke", function(d){ return myColor("valueA") })
+          .attr("stroke", function(d){ return myColor("Tempora1") })
           .style("stroke-width", 4)
           .style("fill", "none")
 
@@ -150,9 +150,9 @@ function plot2(){
 
   })
 }
-plot2();
+plot3();
 
-function plot3(){
+function plot2(){
 
 
   var data = [{

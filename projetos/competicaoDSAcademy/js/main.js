@@ -78,7 +78,7 @@ function plot3(){
   d3.csv("https://muriloms.github.io/data/dados3.csv", function(data) {
 
       // List of groups (here I have one group per column)
-      var allGroup = ["tempA", "tempB", "tempC"]
+      var allGroup = ["temp1", "temp2", "temp3"]
 
       // add the options to the button
       d3.select("#selectButton")
@@ -116,9 +116,9 @@ function plot3(){
           .datum(data)
           .attr("d", d3.line()
             .x(function(d) { return x(+d.time) })
-            .y(function(d) { return y(+d.valueA) })
+            .y(function(d) { return y(+d.temp1) })
           )
-          .attr("stroke", function(d){ return myColor("valueA") })
+          .attr("stroke", function(d){ return myColor("temp1") })
           .style("stroke-width", 4)
           .style("fill", "none")
 
@@ -126,7 +126,7 @@ function plot3(){
       function update(selectedGroup) {
 
         // Create new data with the selection?
-        var dataFilter = data.map(function(d){return {time: d.time, value:d[selectedGroup]} })
+        var dataFilter = data.map(function(d){return {time: d.time, temp:d[selectedGroup]} })
 
         // Give these new data to update line
         line
@@ -135,7 +135,7 @@ function plot3(){
             .duration(1000)
             .attr("d", d3.line()
               .x(function(d) { return x(+d.time) })
-              .y(function(d) { return y(+d.value) })
+              .y(function(d) { return y(+d.temp) })
             )
             .attr("stroke", function(d){ return myColor(selectedGroup) })
       }
@@ -143,7 +143,7 @@ function plot3(){
       // When the button is changed, run the updateChart function
       d3.select("#selectButton").on("change", function(d) {
           // recover the option that has been chosen
-          var selectedOption = d3.select(this).property("value")
+          var selectedOption = d3.select(this).property("temp")
           // run the updateChart function with this selected option
           update(selectedOption)
       })
